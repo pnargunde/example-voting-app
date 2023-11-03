@@ -27,7 +27,7 @@ var pool = new pg.Pool({
   connectionString: 'postgres://postgres:postgres@db/postgres'
 });
 
-async.dontretry(
+async.retry(
   {times: 1000, interval: 1000},
   function(callback) {
     pool.connect(function(err, client, done) {
