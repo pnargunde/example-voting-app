@@ -24,12 +24,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 var pool = new pg.Pool({
-  host: 'db',
-  user: 'postgres',
-  password: 'postgres',
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000
+    connectionString: 'postgres://postgres:postgres@db/postgres'
 });
 
 async.retry(
