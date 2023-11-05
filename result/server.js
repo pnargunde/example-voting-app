@@ -39,6 +39,8 @@ async.retry(
     });
   },
   function(err, client) {
+    console.log(err);
+    console.log(client);
     if (err) {
       return console.error("Giving up");
     }
