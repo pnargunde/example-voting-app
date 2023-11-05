@@ -24,7 +24,12 @@ io.sockets.on('connection', function (socket) {
 });
 
 var pool = new pg.Pool({
-  connectionString: 'postgres://postgres:postgres@db/postgres'
+  host: 'db',
+  user: 'postgres',
+  password: 'postgres',
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000
 });
 
 async.retry(
@@ -35,17 +40,17 @@ async.retry(
       if (err) {
         console.error("Waiting for db");
       }
-      callback(err, client);
+      done();
     });
   },
-  function(err, client) {
+  function(err, result) {
     console.log(err);
-    console.log(client);
+    console.log(result);
     if (err) {
       return console.error("Giving up");
     }
     console.log("Connected to db");
-    getVotes(client);
+    getVotes(result);
   }
 );
 
